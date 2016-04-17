@@ -1,1 +1,2 @@
 # rps
+Simple RPS Games
