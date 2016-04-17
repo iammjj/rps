@@ -1,10 +1,11 @@
 {
   "version": "1.0",
   "groups": {
-    "win-main": [
-      "cantk-game/assets/images/ground.png",
+    "scene.win-main": [
       "assets/controls/button_active.png",
-      "assets/controls/button_normal.png",
+      "assets/controls/button_normal.png"
+    ],
+    "win-main": [
       "assets/s1.jpg",
       "assets/s2.jpg",
       "assets/s3.jpg"
@@ -15,12 +16,15 @@
       "deps.js",
       "cantk/css/cantk.css",
       "cantk/js/cantk-core.js",
-      "cantk/js/webapp_init.js",
-      "cantk/js/cantk-box2d.js"
+      "cantk/js/webapp_init.js"
     ]
   },
   "scenes": {
+    "scene": [
+      "scene.win-main"
+    ],
     "win-main": [
+      "scene.win-main",
       "win-main"
     ]
   }

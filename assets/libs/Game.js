@@ -10,6 +10,7 @@ var Game = {
     _computerResult : null,
     _userResult : null,
     _resultLabel : null,
+    _level : 'easy', //1 0.3 简单， 2 0.5 一般, 3 0.7 困难
     
     init : function(win){
         this._win = win;
@@ -22,6 +23,9 @@ var Game = {
         this._btnStart = win.find("s-btn-start");
         this._resultLabel = win.find("result-label");
     },
+    setLevel : function(level){
+        this._level = level;
+    },
     play : function(){
         this._running = true;
         this.playShowBtn();
@@ -29,9 +33,45 @@ var Game = {
     },
     compare : function(userResult){
         this._userResult = userResult;
-        this._computerResult = parseInt(Math.random() * 3);
+        this.compute();
         this._running = false;
         this.showResult();
+    },
+    compute : function(){
+        console.log("level: " + this._level);
+        //计算机赢的概率
+        var _l;
+        if(Config.level[this._level]){
+            _l = (Config.level[this._level])[0];
+        }else{
+            _l = (Config.level[Config.defaultLevel])[0];
+        }
+        //平局的概率
+        var _m;
+        if(Config.level[this._level]){
+            _m = (Config.level[this._level])[1];
+        }else{
+            _m = (Config.level[Config.defaultLevel])[1];
+        }
+        var random = Math.random();
+        console.log("random :" + random);
+        //计算机赢
+        if(random <= _l){
+            this._computerResult = this._userResult + 1;
+            if(this._computerResult > Config.type.paper){
+                this._computerResult = Config.type.scissors;
+            }
+        }
+        //平局
+        else if(random <= _l + _m){
+            this._computerResult = this._userResult;
+        }else{
+            this._computerResult = this._userResult - 1;
+            if(this._computerResult < Config.type.scissors){
+                this._computerResult = Config.type.paper;
+            }
+        }
+        console.log("_computerResult :" + this._computerResult);
     },
     isPlaying : function(){
         return this._running;
